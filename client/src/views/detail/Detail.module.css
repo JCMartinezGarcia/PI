@@ -1,0 +1,82 @@
+.mainSection {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: black;
+    opacity: 0.9;
+}
+
+.detailImage {
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size: cover;
+    background-size: 100% 100%;
+    height: auto;
+    margin: 2rem;
+}
+
+.detailImage :hover{
+    height: 20rem;
+}
+.detailHead {
+    margin: auto;
+    padding: 1rem;
+    background-color: black;
+    opacity: black;
+}
+
+.detailHeadTitle {
+    color: white;
+    opacity: 0.5;
+    font-size: xx-large;
+}
+
+.detailTitle {
+    position: relative;
+    top: 23rem;
+    color: white;
+    opacity: 0.5;
+    font-size: xx-large;
+}
+
+.detailInfo {
+    background-color: black;
+    opacity: 0.9;
+}
+
+.detailInfoCard {
+    margin: 2rem;
+    padding: 1rem;
+    background-color: #464242;
+    opacity: 0.3;
+    color: white;
+}
+
+.detailCollapsible {
+    cursor: pointer;
+}
+
+.active,
+.detailCollapsible:hover {
+    background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.detailContentCollapsible {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    color: #464242;
+    /* Initial value */
+    scrollbar-gutter: auto;
+}
+
+.detailFooter{
+    margin: auto;
+    background-color: black;
+    opacity: 0.9;
+}
+.detailFooterInner{
+    margin: auto;
+    padding: 2rem;
+}
