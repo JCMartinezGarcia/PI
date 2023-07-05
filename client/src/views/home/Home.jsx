@@ -3,6 +3,7 @@ import Cards from '../../components/cards/cards';
 import Search from '../../components/searchbar/search';
 import Pagination from '../../components/pagination/Pagination';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getAllVideoGames,
@@ -38,9 +39,9 @@ const Home = () => {
     }, []);
 
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-        Paginate(pageNumber, true);
+    const handlePageChange = (number, angles = '') => {
+        setCurrentPage(number);
+        Paginate(number, true, angles);
         // Puedes realizar cualquier búsqueda de datos o actualización necesaria aquí en función del número de página seleccionado
     };
     /**filtro desde la BD */
@@ -165,11 +166,18 @@ const Home = () => {
         setFilterExist(true);
     }
 
-    const Paginate = (pageNumber = 1, changeEvent = false) => {
+    const Paginate = (pageNumber = 1, changeEvent = false, angles = '') => {
         let listPaginated;
         let startRange = 0;
         let LimitRange = 14;
         let page = pageNumber;
+        if (angles === 'left' && currentPage > 1) {
+            page--;
+            setCurrentPage(page);
+        } else if (angles === 'rigth' && currentPage < totalPages) {
+            page++;
+            setCurrentPage(page);
+        }
         /**if curent page is the first bring the first elements */
         if (currentPage === 1 && !changeEvent) {
             listPaginated = allVideoGames.filter((game, index) => {
@@ -178,7 +186,7 @@ const Home = () => {
             setFiltered(listPaginated);
             setFilterExist(true);
             return;
-        } else if (changeEvent && pageNumber < 2) {
+        } else if (changeEvent && pageNumber < 2 && angles === '') {
 
             listPaginated = allVideoGames.filter((game, index) => {
                 return index >= startRange && index <= LimitRange;
@@ -199,11 +207,11 @@ const Home = () => {
     }
 
 
-    console.log('reference: ', allVideoGames);
+  //  console.log('reference: ', allVideoGames);
 
     return (
         <div>
-            <h1>Home View</h1>
+            <h1 className={style.homeHead}>Home View</h1>
             <Search
                 handleChange={handleChange}
                 handleGenderChange={handleGenderChange}
@@ -212,14 +220,19 @@ const Home = () => {
                 handleSubmit={handleSubmit}
                 allGenres={allGenres}
             />
-            <div>
+            <div className={style.homeCardsContainer}>
+                <div style={{ padding: '1rem' }}>
+                    <Link to='/create'>
+                        <button className={style.addHomeButton}><strong>Add Game</strong></button>
+                    </Link>
+                </div>
                 <Cards allVideoGames={(filteredExist) ? filtered : allVideoGames.slice(0, 15)} />
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
             </div>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
         </div>
     )
 }

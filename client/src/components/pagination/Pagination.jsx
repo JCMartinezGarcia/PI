@@ -9,7 +9,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
     return (
         <div className={styles.pagContainer}>
-            <a href="#" className={styles.pagItem}>&laquo;</a>
+            <a
+                className={styles.pagItem}
+                onClick={() => onPageChange(currentPage, 'left')}
+            >&laquo;
+            </a>
             {pageNumbers.map((number) => (
                 <a
                     key={number}
@@ -19,7 +23,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                     {number}
                 </a>
             ))}
-            <a href="#" className={styles.pagItem}>&raquo;</a>
+            <a
+                className={styles.pagItem}
+                onClick={() => onPageChange(currentPage, 'rigth')}
+            >&raquo;
+            </a>
         </div>
     )
 }

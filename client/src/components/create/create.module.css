@@ -19,23 +19,67 @@
     cursor: pointer;
 }
 
-.formCard {
+
+.formCreate {
     color: black;
-    padding: 9rem;
-    margin: 1rem;
+    padding: 17rem;
     background-color: black;
     opacity: 0.4;
+    border: 1px px solid black;
+    box-shadow: 1px 0px 12px 8px lightblue;
 }
 
-.formCard label {
+.createFormContainer {
+    padding: 12rem;
+    background-image: url(https://images.unsplash.com/photo-1579199339853-eec461b791b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80);
+    position: relative;
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.formCreate label {
     color: white;
 }
 
-.formCard span {
+.formCreate span {
     color: red;
 }
 
 .radioContainer {
     display: grid;
     grid-template-columns: auto auto auto;
+}
+
+.homeLink {
+    color: #ffffff42;
+    /* box-shadow: 1px 0px 12px 8px lightblue; */
+    position: relative;
+    bottom: 6rem;
+}
+
+.homeLink:hover {
+    color: #ffffffff;
+    cursor: pointer;
+}
+
+.linkHomeButton {
+    width: 13rem;
+    height: 3rem;
+    border: 1px solid #00000069;
+    background-color: #00000069;
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    bottom: 6rem;
+}
+
+.linkHomeButton:hover {
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
 }

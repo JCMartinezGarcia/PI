@@ -3,7 +3,7 @@ const { getVideoGames, getVideoGamesDetails, getVideoGamesByName, createVideoGam
 const { cleanGenres, cleanVideoGame, isNumber } = require('./utilsHandlers/utils');
 //? handler functions
 const getVideoGamesHandler = async (req, res) => {
-    
+
     const { name } = req.query;
 
     try {
@@ -18,7 +18,7 @@ const getVideoGamesHandler = async (req, res) => {
             }
 
         } else {
-            const  results  = await getVideoGames();
+            const results = await getVideoGames();
             const allGames = cleanVideoGame(results);
             res.status(200).json(allGames);
         }
@@ -47,8 +47,10 @@ const createVideoGameHandler = async (req, res) => {
     const { name, description, platforms, image, released, rating, genres } = req.body;
     //? get just the props you need
     const oGenres = cleanGenres(genres)
+    console.log('oGnere:', oGenres);
+    console.log('genre:', genres);
     //? create the object to be created
-    const oVideoGameGenres = { name, description, platforms, image, released, rating, oGenres };
+    const oVideoGameGenres = { name, description, platforms, image, released, rating, genres };
     /***Try catch */
     try {
         //? call the controller function  to create videogame

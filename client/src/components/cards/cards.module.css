@@ -1,6 +1,6 @@
 .cardsContainer {
     display: grid;
     grid-template-columns: auto auto auto;
-    background-color: rgb(2, 8, 135);
     padding: 1rem 1rem 1rem 2rem;
+    
 }

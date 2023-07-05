@@ -1,6 +1,6 @@
 import styles from './Detail.module.css';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom/';
+import { useParams, Link } from 'react-router-dom/';
 import axios from 'axios';
 /**utils */
 import { cleanText } from '../utils/utils';
@@ -58,15 +58,21 @@ const Detail = () => {
         <div>
             <header>
                 <h1 className={styles.detailHead}>
+                    <div style={{ padding: '1rem' }}>
+                        <Link to='/home'>
+                            <button className={styles.detailHomeButton}><strong>Home</strong></button>
+                        </Link>
+                    </div>
                     <span className={styles.detailHeadTitle}>Game Details</span>
                 </h1>
             </header>
 
             <section className={styles.mainSection}>
+
                 <div className={styles.detailImage} style={{ backgroundImage: `url(${image})` }}>
                     <h2 className={styles.detailTitle}>{name}</h2>
                 </div>
-                <div className={styles.detailInfo}>
+                <div>
                     <div className={styles.detailInfoCard}>
                         <p># : {detailId}</p>
                         <div className={styles.detailCollapsible}

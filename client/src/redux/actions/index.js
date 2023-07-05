@@ -54,7 +54,6 @@ export const getAllGenres = () => {
 }
 
 export const getAllPlatforms = () => {
-    console.log('action platform');
     return async (dispatch) => {
         try {
             const response = await axios.get(GET_ALL_PLATFORMS);
@@ -68,3 +67,4 @@ export const getAllPlatforms = () => {
         }
     }
 }
+

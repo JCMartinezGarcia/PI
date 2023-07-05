@@ -1,0 +1,50 @@
+.landingHead {
+    background-color: black;
+    color: white;
+    margin: auto;
+}
+
+.landingImage {
+    background-image: url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80);
+    background-color: #cccccc;
+    height: 42rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+}
+
+.landingCard {
+    padding: 0rem;
+    margin-left: 20rem;
+    margin-right: 20rem;
+    border: 5px solid #ffffff00;
+    height: 14rem;
+    position: relative;
+    top: 4rem;
+    color: #ffffff7d;
+}
+
+.landingCard h1 {
+    font-size: 4rem;
+}
+
+.landingCard button {
+    width: 47%;
+    height: 23%;
+    background-color: #ffffff47;
+    border: 1px solid #ffffff00;
+    color: #ffffffa3;
+    position: relative;
+    top: 4rem;
+}
+
+.landingCard button:hover {
+    background-color: #ffffff1f;
+    border: 1px solid #ffffff00;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: large;
+}

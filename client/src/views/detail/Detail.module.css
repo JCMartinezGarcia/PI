@@ -1,8 +1,12 @@
 .mainSection {
     display: grid;
     grid-template-columns: 50% 50%;
-    background-color: black;
-    opacity: 0.9;
+    background-image: url(https://images.unsplash.com/photo-1553640627-57a6de3bf0ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1033&q=80);
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .detailImage {
@@ -14,20 +18,26 @@
     margin: 2rem;
 }
 
-.detailImage :hover{
+.detailImage :hover {
     height: 20rem;
 }
+
 .detailHead {
     margin: auto;
     padding: 1rem;
     background-color: black;
     opacity: black;
+    display: grid;
+    grid-template-columns: 20% 80%;
 }
 
 .detailHeadTitle {
     color: white;
     opacity: 0.5;
     font-size: xx-large;
+    margin: auto;
+    position: relative;
+    right: 5rem;
 }
 
 .detailTitle {
@@ -38,16 +48,11 @@
     font-size: xx-large;
 }
 
-.detailInfo {
-    background-color: black;
-    opacity: 0.9;
-}
 
 .detailInfoCard {
     margin: 2rem;
     padding: 1rem;
-    background-color: #464242;
-    opacity: 0.3;
+    background-color: #46424299;
     color: white;
 }
 
@@ -71,12 +76,30 @@
     scrollbar-gutter: auto;
 }
 
-.detailFooter{
+.detailHomeButton {
+    width: 13rem;
+    height: 3rem;
+    border: 1px solid #00000069;
+    background-color: #00000069;
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+    color: white;
+}
+
+.detailHomeButton:hover {
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+}
+
+.detailFooter {
     margin: auto;
     background-color: black;
     opacity: 0.9;
 }
-.detailFooterInner{
+
+.detailFooterInner {
     margin: auto;
     padding: 2rem;
 }

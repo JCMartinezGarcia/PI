@@ -83,9 +83,9 @@ const getVideoGamesDetails = async (id, source) => {
 
 const createVideoGame = async (videoGameGenres) => {
     //? destructure parameter videoGameGenres
-    const { name, description, platforms, image, released, rating, oGenres } = videoGameGenres;
+    const { name, description, platforms, image, released, rating, genres } = videoGameGenres;
     //? build obj to be created
-    const oCreateGame = { name, description, platforms, image, released, rating, genres: oGenres };
+    const oCreateGame = { name, description, platforms, image, released, rating, genres: genres };
     /**TRY CATCH */
     try {
         //? create videogame using associations n:n

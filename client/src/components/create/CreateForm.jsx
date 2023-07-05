@@ -1,6 +1,8 @@
 import style from './create.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import {
     getAllVideoGames,
     getAllGenres,
@@ -23,6 +25,7 @@ const CreateForm = () => {
         name: "",
         description: "",
         platforms: [{}],
+        genres: [{}],
         image: "",
         released: "",
         rating: 0,
@@ -32,7 +35,7 @@ const CreateForm = () => {
     const [errors, setErrors] = useState({
         name: "* Please introduce a name",
         description: "* Please introduce a description",
-        platforms: "* Please select a platform",
+        platforms: "",
         image: "* Please select an image",
         released: "* Please select a released date",
         rating: "* Please introduce a rate",
@@ -46,28 +49,28 @@ const CreateForm = () => {
                 ...inputs.platforms,
                 { id: id, name: value }
             ]
-            setInputs({
-                ...inputs,
-                [name]: arr
-            });
-        } else {
-
-            setInputs({
-                ...inputs,
-                [name]: [value]
-            });
+        } else if (name === 'genres') {
+            arr = [
+                ...inputs.genres,
+                { id: id, name: value }
+            ]
         }
+
+        setInputs({
+            ...inputs,
+            [name]: (name === 'platforms' || name === 'genres') ? arr : [value]
+        });
 
         setErrors(
             validateInputs({
                 ...inputs,
-                [name]: (name === 'platforms') ? [arr] : [value]
+                [name]: [value]
             })
         );
     }
 
     const validateInputs = (inputs) => {
-        const { name, image, description, platforms } = inputs;
+        const { name, image, description, released, rating } = inputs;
         let errors = {};
         let regexSymbols = /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g;
         if (regexSymbols.test(inputs.name)) {
@@ -92,20 +95,57 @@ const CreateForm = () => {
             errors.description = '';
         }
 
-        if (!platforms[0]) {
-            errors.description = '* Please select a platform';
+        if (!released[0]) {
+            errors.released = '* Please select a released date';
         } else {
-            errors.platform = '';
+            errors.released = '';
         }
-        console.log('platform', platforms);
+        if (!rating || !rating[0]) {
+            errors.rating = '* Please introduce a rate';
+        } else if (rating[0] > 10 || rating[0] < 1) {
+            errors.rating = 'Rate must be between 1 and 10';
+        } else {
+            errors.rating = '';
+        }
+
+
         return errors;
     }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const { name, description, platforms, image, released, rating, genres } = inputs;
+        platforms.shift();
+        genres.shift();
+        const body = {
+            name: name[0],
+            description: description[0],
+            platforms,
+            image: image[0],
+            rating: rating[0],
+            released: released[0],
+            genres
+        };
+        try {
+            const response = await axios.post('http://localhost:3001/videogames/', body);
+            console.log(response);
+        } catch (error) {
+            console.log({ error: error.message });
+        }
+
+        /*
+        if (!errors.nombre && !errors.descripcion && !errors.reglas) {
+            dispatch(actions.createDeporte(inputs));
+        }*/
+
+    }
 
     return (
-        <div>
-
-            <form className={style.formCard}>
+        <div className={style.createFormContainer}>
+            <Link to='/home'>
+                <button className={style.linkHomeButton}><strong>Home</strong></button>
+            </Link>
+            <form className={style.formCreate} onSubmit={handleSubmit}>
                 <label for="name">Name: </label>
                 <input
                     type='text'
@@ -161,18 +201,18 @@ const CreateForm = () => {
                 <label for="release">Release Date: </label>
                 <input
                     type='date'
-                    name='release'
+                    name='released'
                     placeholder='set a date...'
-                    value={inputs.released}
+                    onChange={handleChange}
                     className={style.createInput}
                 />
                 <span>{errors.released}</span><br></br>
                 <label for="rate">Rating: </label>
                 <input
                     type='number'
-                    name='rate'
+                    name='rating'
                     placeholder='introduce a rate'
-                    value={inputs.rating}
+                    onChange={handleChange}
                     className={style.createInput}
                 />
                 <span>{errors.rating}</span><br></br>
@@ -185,10 +225,11 @@ const CreateForm = () => {
                             return <div>
                                 <label>{genres.name}</label>
                                 <input
-                                    type='radio'
+                                    type='checkbox'
                                     id={genres.id}
-                                    name={genres.name}
+                                    name='genres'
                                     value={genres.name}
+                                    onChange={handleChange}
                                     className={style.createInput}
                                 />
                             </div>
@@ -197,12 +238,13 @@ const CreateForm = () => {
                     }
                     <span>{errors.genres}</span><br></br>
                 </div>
+                {
+                    (errors.name === "" && errors.description === "" && errors.image === "" && errors.rating === "" && errors.released === "") ? <input
+                        type='submit'
+                        value='Submit'
+                        className={style.submitInput} /> : null
+                }
 
-                <input
-                    type='submit'
-                    value='Submit'
-                    className={style.submitInput}
-                />
             </form>
         </div>
     )

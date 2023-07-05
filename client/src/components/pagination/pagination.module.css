@@ -1,15 +1,21 @@
 .pagContainer {
     margin: auto;
-    padding: 1rem;
+    padding: 3rem;
+    color: white;
 }
 
 .pagItem {
     padding: 1rem;
+    color: white;
 }
 
 .active {
     padding: 1rem;
-    background-color: #4CAF50;
+    background-color: #00000069;
     color: white;
     border-radius: 5px;
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
 }

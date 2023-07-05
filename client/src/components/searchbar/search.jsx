@@ -5,7 +5,6 @@ const Search = ({ handleChange, handleSubmit, handleGenderChange, allGenres, han
     return (
         <div className={style.searchContainer}>
             <div>
-                <Navbar />
             </div>
             <div>
                 <form onSubmit={handleSubmit}>

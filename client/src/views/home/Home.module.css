@@ -2,3 +2,43 @@
     display: grid;
     grid-template-columns: 20% 80%;
 }
+
+.homeHead {
+    background-image: url(https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
+    background-color: #cccccc;
+    height: 2rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: auto;
+    padding: 1rem;
+    color: white;
+}
+
+.homeCardsContainer {
+    background-image: url(https://images.unsplash.com/photo-1625805866449-3589fe3f71a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80);
+    background-color: #cccccc;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.addHomeButton {
+    width: 13rem;
+    height: 3rem;
+    border: 1px solid #00000069;
+    background-color: #00000069;
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+    color: white;
+}
+
+.addHomeButton:hover {
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+}
