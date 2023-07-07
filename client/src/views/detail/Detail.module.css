@@ -7,6 +7,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    height: 43rem;
 }
 
 .detailImage {
@@ -24,7 +25,6 @@
 
 .detailHead {
     margin: auto;
-    padding: 1rem;
     background-color: black;
     opacity: black;
     display: grid;
@@ -32,8 +32,8 @@
 }
 
 .detailHeadTitle {
-    color: white;
-    opacity: 0.5;
+    color: #fffefeb5;
+    opacity: 0.9;
     font-size: xx-large;
     margin: auto;
     position: relative;

@@ -51,9 +51,16 @@ const Home = () => {
         setSearchString(value);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmitSearchName = (e) => {
         e.preventDefault();
         dispatch(getVideoGameByName(searchString));
+        if (filteredExist) {
+            setTimeout(() => {
+                setFilterExist(false);
+                setFiltered([{}]);
+            },1*1000);
+
+        }
     }
 
     const handleGenderChange = (e) => {
@@ -92,15 +99,15 @@ const Home = () => {
         if (currentPage === 1) {
             startRange = (currentPage * totalElements) - totalElements;
             LimitRange = startRange + totalElements;
-            filt = allVideoGames.slice(0, 14).filter((game, i) => {
+            filt = allVideoGames.filter((game, i) => {
                 return game.source === value;
-            });
+            }).slice(0, 14);
         } else {
             startRange = (currentPage * totalElements) - totalElements;
             LimitRange = startRange + totalElements;
-            filt = allVideoGames.slice(startRange, LimitRange).filter((game, i) => {
+            filt = allVideoGames.filter((game, i) => {
                 return game.source === value;
-            });
+            }).slice(startRange, LimitRange);
         }
         setFiltered(filt);
         setFilterExist(true);
@@ -111,7 +118,6 @@ const Home = () => {
         let startRange = 0;
         let LimitRange = 0;
         let filt;
-
         switch (value) {
             case 'asc':
                 if (currentPage === 1) {
@@ -156,7 +162,33 @@ const Home = () => {
 
                 }
                 break;
+            case 'alphabetical':
+                if (currentPage === 1) {
+                    filt = allVideoGames.slice(0, 14).sort((a, b) => {
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        if (a.name > b.name) {
+                            return 1;
+                        }
+                        return 0;
+                    });
 
+                } else {
+                    startRange = (currentPage * totalElements) - totalElements;
+                    LimitRange = startRange + totalElements;
+                    filt = allVideoGames.slice(startRange, LimitRange).sort((a, b) => {
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        if (a.name > b.name) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+
+                }
+                break;
             default:
                 setFiltered([{}]);
                 setFilterExist(false);
@@ -207,7 +239,6 @@ const Home = () => {
     }
 
 
-  //  console.log('reference: ', allVideoGames);
 
     return (
         <div>
@@ -217,7 +248,7 @@ const Home = () => {
                 handleGenderChange={handleGenderChange}
                 handleSrcChange={handleSrcChange}
                 handleOrderChange={handleOrderChange}
-                handleSubmit={handleSubmit}
+                handleSubmitSearchName={handleSubmitSearchName}
                 allGenres={allGenres}
             />
             <div className={style.homeCardsContainer}>

@@ -1,28 +1,24 @@
 /**video game model */
 const axios = require('axios');
 require('dotenv').config();
-//? import .env 
+/**env */
 const { RAW_API_KEY } = process.env;
-//? import videogame model 
+/**import models */
 const { Videogame, Genres } = require('../db');
-//? URLS
+/**Urls */
 const GET_ALL_GAMES = "https://api.rawg.io/api/games?page_size=100";
 const GET_DETAILS_GAMES = "https://api.rawg.io/api/games/";
 const GET_GAMES_BY_NAME = "https://api.rawg.io/api/games?page_size=100";
 
-//? controller functions
+/**functions */
 const getVideoGames = async () => {
     /**List videogames */
-
     try {
-        //? make get request
         const { data } = await axios.get(GET_ALL_GAMES, { params: { key: RAW_API_KEY, } });
         let resultsDb = await Videogame.findAll({ include: Genres });
         let allGameResults = [...data.results, ...resultsDb];
-        //? return the response
         return allGameResults;
     } catch (error) {
-        //? return error
         return error;
     }
 }
@@ -34,17 +30,15 @@ const getVideoGamesByName = async (name) => {
         switch (source) {
             case 'all':
 
-                //? make get request to api
-                const { data } = await axios.get(GET_GAMES_BY_NAME, { params: { key: RAW_API_KEY, limit: 30, search: name, } });
-                //? query DB
-                const dataDb = await Videogame.findAll({ where: { name }, include: Genres, limit: 100 });
-                //? validate if something was found
+                const { data } = await axios.get(GET_GAMES_BY_NAME, { params: { key: RAW_API_KEY, page_size: 30, search: name, } });
+                /**query to DB */
+                const dataDb = await Videogame.findAll({ where: { name }, include: Genres, limit: 15 });
+                /**validate if something was found */
                 if (!data.results.length && !dataDb.length) {
                     return [{ found: false, message: 'Videogame not found' }];
                 }
-                //? join results
+                /**join results */
                 const allResults = [...data.results, ...dataDb, { found: true }];
-                //? return the response
                 return allResults;
 
             default:
@@ -52,12 +46,10 @@ const getVideoGamesByName = async (name) => {
         }
 
     } catch (error) {
-        //? return error
         return error;
     }
 }
-//! Pendiente funcionalidad
-//**Debe funcionar tanto para los videojuegos de la API como para los de la base de datos. */
+
 const getVideoGamesDetails = async (id, source) => {
     /**list videogames by ID*/
     try {
@@ -76,27 +68,36 @@ const getVideoGamesDetails = async (id, source) => {
                 break;
         }
     } catch (error) {
-        //? return error
         return error;
     }
 }
 
 const createVideoGame = async (videoGameGenres) => {
-    //? destructure parameter videoGameGenres
     const { name, description, platforms, image, released, rating, genres } = videoGameGenres;
-    //? build obj to be created
-    const oCreateGame = { name, description, platforms, image, released, rating, genres: genres };
-    /**TRY CATCH */
+    const oCreateGame = { name, description, platforms, image, released, rating };
     try {
-        //? create videogame using associations n:n
-        const { dataValues } = await Videogame.create(oCreateGame, { include: Genres });
-        //? return back values to the handler
+        /**create videogame using associations n:n */
+        //const { dataValues } = await Videogame.create(oCreateGame, { include: Genres });
+        const game = await Videogame.create(oCreateGame);
+        genres.forEach(async (element, i) => {
+            const [genre, created] = await Genres.findOrCreate({
+                where: { name: element.name },
+                defaults: element
+            });
+            game.addGenres(genre);
+        });
+        /* const game = await Videogame.create(oCreateGame);
+         const [genre, created] = await Genres.findOrCreate({
+             where: { username: 'sdepold' },
+             defaults: {
+                 job: 'Technical Lead JavaScript'
+             }
+         });*/
         return dataValues;
     } catch (error) {
         return error;
     }
 }
-//? export controller functions
 module.exports = {
     getVideoGames,
     getVideoGamesDetails,

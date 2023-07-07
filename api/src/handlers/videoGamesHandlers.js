@@ -47,8 +47,6 @@ const createVideoGameHandler = async (req, res) => {
     const { name, description, platforms, image, released, rating, genres } = req.body;
     //? get just the props you need
     const oGenres = cleanGenres(genres)
-    console.log('oGnere:', oGenres);
-    console.log('genre:', genres);
     //? create the object to be created
     const oVideoGameGenres = { name, description, platforms, image, released, rating, genres };
     /***Try catch */

@@ -9,13 +9,21 @@
 }
 
 .submitInput {
-    width: 100%;
-    background-color: #4CAF50;
+    width: 21rem;
+    height: 3rem;
+    border: 1px solid #00000069;
+    background-color: #00000069;
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
+    position: relative;
+    top: 3rem;
+}
+
+.submitInput:hover {
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
     cursor: pointer;
 }
 
@@ -82,4 +90,26 @@
     transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
     box-shadow: 1px 0px 12px 8px lightblue;
     cursor: pointer;
+}
+
+.createSuccessMsg {
+    color: green;
+    border: 1px solid green;
+    background-color: #0080002e;
+    width: 27rem;
+    height: 5rem;
+    position: relative;
+    top: 2rem;
+    right: 3rem;
+}
+
+.createErrorMsg{
+    color: red;
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.212);
+    width: 27rem;
+    height: 5rem;
+    position: relative;
+    top: 2rem;
+    right: 3rem;
 }

@@ -28,11 +28,12 @@ const Detail = () => {
         getGameById();
     }, [id]);
 
-    const { description, genres, image, name, rating, released, platforms } = gameDetail;
+    const { description, genres, image, name, rating, released, platforms, source } = gameDetail;
     const detailId = gameDetail.id;
+    const img = 'https://media.rawg.io/media/screenshots/08b/08beb85ebdd1d418ce08863bce0846a5.jpg';
     /**general functions */
-
-
+    console.log('detail platfomrs: ', platforms);
+    console.log('detail : ', gameDetail);
     /**Handlers funtions */
     const handleGenres = () => {
         if (displayGenres) {
@@ -69,7 +70,7 @@ const Detail = () => {
 
             <section className={styles.mainSection}>
 
-                <div className={styles.detailImage} style={{ backgroundImage: `url(${image})` }}>
+                <div className={styles.detailImage} style={{ backgroundImage: `url(${(source === 'db') ? img : image})` }}>
                     <h2 className={styles.detailTitle}>{name}</h2>
                 </div>
                 <div>
@@ -101,7 +102,7 @@ const Detail = () => {
                             style={(displayPlatform) ? { display: 'block' } : { display: 'none' }}
                         >
                             {
-                                (displayPlatform) ? platform.map((plat, i) => { return <p key={i}>{plat.platform.name}</p> }) : ''
+                                (displayPlatform) ? platform.map((plat, i) => { return <p key={i}>{(source === 'api') ? plat.platform.name : plat.name}</p> }) : ''
                             }
                         </div>
                         <p>Rating : {rating}</p>
@@ -111,9 +112,12 @@ const Detail = () => {
                     </div>
                 </div>
             </section>
-            <footer className={styles.detailFooter}>
-                <h1 className={styles.detailFooterInner}></h1>
-            </footer>
+            {
+                /* <footer className={styles.detailFooter}>
+                    <h1 className={styles.detailFooterInner}></h1>
+                </footer>
+                */
+            }
         </div>
     )
 }

@@ -1,9 +1,8 @@
 /**Imports  */
 const { Router } = require("express");
 const platformsRouter = Router();
-//?import handlers
 const { getAllPlatformsHandler } = require('../handlers');
-//? matching routes with handler callbacks
+// matching routes
 platformsRouter.get('/', getAllPlatformsHandler);
-
+/**exports */
 module.exports = platformsRouter;

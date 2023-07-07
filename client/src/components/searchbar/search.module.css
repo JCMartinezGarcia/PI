@@ -2,7 +2,54 @@
     display: grid;
     grid-template-columns: auto auto auto;
     background-color: rgb(0 0 0);
+    color: white;
     padding: 1rem;
     /* margin: 5px 0px 5px 0px; */
     opacity: 0.9;
+}
+
+.searchButton {
+    margin-left: 4px;
+    width: 4rem;
+    height: 1.8rem;
+    border: 1px solid #00000069;
+    background-color: #00000069;
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+    color: white;
+}
+
+.searchButton:hover {
+    transform: scale(0.8);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    box-shadow: 1px 0px 12px 8px lightblue;
+    cursor: pointer;
+}
+
+.searchInput {
+    width: 80%;
+    padding: 6px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.searchSelectGenre {
+    width: 40%;
+    padding: 5px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.searchSelectSmall {
+    width: 19%;
+    padding: 6px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

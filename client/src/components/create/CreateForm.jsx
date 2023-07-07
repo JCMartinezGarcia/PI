@@ -1,7 +1,7 @@
 import style from './create.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
     getAllVideoGames,
@@ -13,6 +13,7 @@ const CreateForm = () => {
     const dispatch = useDispatch();
     const allPlatforms = useSelector((state) => state.allPlatforms);
     const allGenres = useSelector((state) => state.allGenres);
+    const navigate = useHistory();
 
     useEffect(() => {
         dispatch(getAllVideoGames());
@@ -20,6 +21,8 @@ const CreateForm = () => {
         dispatch(getAllPlatforms());
         /**if the arr is empty gets in */
     }, [dispatch]);
+    const [successMessage, setSuccessMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const [inputs, setInputs] = useState({
         name: "",
@@ -35,7 +38,8 @@ const CreateForm = () => {
     const [errors, setErrors] = useState({
         name: "* Please introduce a name",
         description: "* Please introduce a description",
-        platforms: "",
+        platforms: "* Please select a platform",
+        genres: "* Please select a genre",
         image: "* Please select an image",
         released: "* Please select a released date",
         rating: "* Please introduce a rate",
@@ -43,17 +47,58 @@ const CreateForm = () => {
 
     function handleChange(e) {
         const { name, value, id } = e.target;
+        const platformsLength = inputs.platforms.length;
+        const genresLength = inputs.genres.length;
         let arr;
+        let repeatedPlatform = false;
+        let repeatedGenre = false;
         if (name === 'platforms') {
-            arr = [
-                ...inputs.platforms,
-                { id: id, name: value }
-            ]
+            /**test not repeated values */
+            if (platformsLength > 1) {
+                inputs.platforms.forEach((plat, i, arr) => {
+                    if (plat.id === id) {
+                        arr.splice(i, 1);
+                        repeatedPlatform = true;
+                    }
+                });
+            }
+
+            if (repeatedPlatform) {
+                arr = [
+                    ...inputs.platforms,
+                ]
+
+            } else {
+                arr = [
+                    ...inputs.platforms,
+                    { id: id, name: value }
+                ]
+            }
         } else if (name === 'genres') {
-            arr = [
-                ...inputs.genres,
-                { id: id, name: value }
-            ]
+            console.log(value);
+            /**test not repeated values */
+            if (genresLength > 1) {
+                inputs.genres.forEach((genre, i, arr) => {
+                    if (genre.id === id) {
+                        arr.splice(i, 1);
+                        repeatedGenre = true;
+                    }
+                });
+            }
+
+            if (repeatedGenre) {
+                arr = [
+                    ...inputs.genres,
+                ]
+
+            } else {
+                arr = [
+                    ...inputs.genres,
+                    { id: id, name: value }
+                ]
+            }
+
+
         }
 
         setInputs({
@@ -70,7 +115,8 @@ const CreateForm = () => {
     }
 
     const validateInputs = (inputs) => {
-        const { name, image, description, released, rating } = inputs;
+        const { name, image, description, released, rating, platforms, genres } = inputs;
+
         let errors = {};
         let regexSymbols = /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g;
         if (regexSymbols.test(inputs.name)) {
@@ -108,6 +154,17 @@ const CreateForm = () => {
             errors.rating = '';
         }
 
+        if (typeof platforms[0] != 'string') {
+            errors.platforms = '* Please select a platform';
+        } else {
+            errors.platforms = '';
+        }
+
+        if (typeof genres[0] != 'string') {
+            errors.genres = '* Please select a platform';
+        } else {
+            errors.genres = '';
+        }
 
         return errors;
     }
@@ -117,6 +174,8 @@ const CreateForm = () => {
         const { name, description, platforms, image, released, rating, genres } = inputs;
         platforms.shift();
         genres.shift();
+        console.log(platforms);
+        console.log(genres);
         const body = {
             name: name[0],
             description: description[0],
@@ -128,9 +187,12 @@ const CreateForm = () => {
         };
         try {
             const response = await axios.post('http://localhost:3001/videogames/', body);
-            console.log(response);
+            (response.status === 200) ? setSuccessMessage(true) : setSuccessMessage(false);
+            setTimeout(() => {
+                navigate.push('/home');
+            }, 1 * 2000);
         } catch (error) {
-            console.log({ error: error.message });
+            (error.message) ? setErrorMessage(true) : setErrorMessage(false);
         }
 
         /*
@@ -236,8 +298,21 @@ const CreateForm = () => {
                         })
 
                     }
-                    <span>{errors.genres}</span><br></br>
+
                 </div>
+                <span>{errors.genres}</span><br></br>
+                {
+                    (successMessage) ? <div className={style.createSuccessMsg}>
+                        <p>Success</p>
+                        <p>Video game was created successfully</p>
+                    </div> : null
+                }
+                {
+                    (errorMessage) ? <div className={style.createErrorMsg}>
+                        <p>Error</p>
+                        <p>Video game was not created, an error occurred</p>
+                    </div> : null
+                }
                 {
                     (errors.name === "" && errors.description === "" && errors.image === "" && errors.rating === "" && errors.released === "") ? <input
                         type='submit'

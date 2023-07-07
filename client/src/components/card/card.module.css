@@ -3,8 +3,8 @@
     padding: 1rem;
     width: 15rem;
     height: 14rem;
-    border-radius: 2rem;
-    box-shadow: 1px 0px 12px 8px lightblue;
+    border-radius: 2rem;  box-shadow: 1px 0px 12px 8px lightblue;
+  
 }
 
 .cardContainer:hover {
