@@ -29,12 +29,14 @@
 
 
 .formCreate {
-    color: black;
-    padding: 17rem;
-    background-color: black;
-    opacity: 0.4;
-    border: 1px px solid black;
-    box-shadow: 1px 0px 12px 8px lightblue;
+    padding: 12rem;
+    background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/06/Video-game-characters-wallpapers-1080p.jpg');
+    position: relative;
+    background-color: #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .createFormContainer {
@@ -50,10 +52,12 @@
 
 .formCreate label {
     color: white;
+    font-weight: bold;
 }
 
-.formCreate span {
+.formCreate p {
     color: red;
+    font-weight: bolder;
 }
 
 .radioContainer {
@@ -103,7 +107,7 @@
     right: 3rem;
 }
 
-.createErrorMsg{
+.createErrorMsg {
     color: red;
     border: 1px solid red;
     background-color: rgba(255, 0, 0, 0.212);

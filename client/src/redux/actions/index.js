@@ -23,10 +23,17 @@ export const getAllVideoGames = () => {
     }
 }
 
-export const getVideoGameByName = (string) => {
+export const getVideoGameByName = (params, filtName) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(GET_VIDEO_GAME_BY_NAME, { params: { name: string } });
+            const response = await axios.get(GET_VIDEO_GAME_BY_NAME,
+                {
+                    params:
+                    {
+                        ...params,
+                        filtName
+                    }
+                });
             const { data } = response;
             return dispatch({
                 type: GET_GAME_BY_NAME,

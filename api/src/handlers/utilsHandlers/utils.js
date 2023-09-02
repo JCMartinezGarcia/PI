@@ -35,9 +35,19 @@ const isNumber = (string) => {
     return (isNaN(Number(string))) ? false : true;
 }
 
+const setParamsFilterName = (params) => {
+    let resObj = {};
+    for (const [key, value] of Object.entries(params)) {
+        (value != '') ? resObj[key] = value : null;
+    }
+    delete resObj.filtName;
+    return resObj;
+}
+
 module.exports = {
     cleanGenres,
     cleanVideoGame,
     cleanInfoPlatform,
-    isNumber
+    isNumber,
+    setParamsFilterName
 };

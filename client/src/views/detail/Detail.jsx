@@ -1,7 +1,8 @@
-import styles from './Detail.module.css';
 import { useEffect, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { useParams, Link } from 'react-router-dom/';
 import axios from 'axios';
+import styles from './Detail.module.css';
 /**utils */
 import { cleanText } from '../utils/utils';
 
@@ -15,12 +16,15 @@ const Detail = () => {
     const [platform, setPlatform] = useState([{}]);
     const [displayGenres, setDisplayGenres] = useState(false);
     const [displayPlatform, setDisplayPlatform] = useState(false);
+    const [rateStars, setRateStars] = useState([]);
     /**on mount component execute the following */
     useEffect(async () => {
         async function getGameById() {
             try {
                 const { data } = await axios.get(URL, { params: { source: 'api' } });
+                console.log(data);
                 setGameDetail(data[0]);
+                setRateStars(ratingLen(data[0].rating));
             } catch (error) {
                 console.log(error.message);
             }
@@ -28,13 +32,8 @@ const Detail = () => {
         getGameById();
     }, [id]);
 
-    const { description, genres, image, name, rating, released, platforms, source } = gameDetail;
+    const { description, genres, image, name, released, platforms, source } = gameDetail;
     const detailId = gameDetail.id;
-    const img = 'https://media.rawg.io/media/screenshots/08b/08beb85ebdd1d418ce08863bce0846a5.jpg';
-    /**general functions */
-    console.log('detail platfomrs: ', platforms);
-    console.log('detail : ', gameDetail);
-    /**Handlers funtions */
     const handleGenres = () => {
         if (displayGenres) {
             setDisplayGenres(false);
@@ -55,6 +54,14 @@ const Detail = () => {
         }
     }
 
+    const ratingLen = (rating) => {
+        let rate = [];
+        for (let i = 0; i <= Math.floor(rating); i++) {
+            rate.push(i);
+        }
+        return rate;
+    }
+
     return (
         <div>
             <header>
@@ -70,24 +77,31 @@ const Detail = () => {
 
             <section className={styles.mainSection}>
 
-                <div className={styles.detailImage} style={{ backgroundImage: `url(${(source === 'db') ? img : image})` }}>
-                    <h2 className={styles.detailTitle}>{name}</h2>
+                <div className={styles.detailImage} style={{ backgroundImage: `url(${image})` }}>
+
                 </div>
                 <div>
                     <div className={styles.detailInfoCard}>
-                        <p># : {detailId}</p>
+                        <div>
+                            <labe><strong>#:</strong></labe>
+                            <p>{detailId}</p>
+                        </div>
+                        <div>
+                            <label><strong>Name:</strong></label>
+                            <p>{name}</p>
+                        </div>
                         <div className={styles.detailCollapsible}
                             onClick={handleGenres}
                             style={(displayGenres) ? { backgroundColor: '#ccc' } : {}}
                         >
-                            <p>Genres</p>
+                            <p><strong>Genres</strong></p>
                         </div>
                         <div className={styles.detailContentCollapsible}
                             style={(displayGenres) ? { display: 'block' } : { display: 'none' }}
                         >
                             {
-                                genre.map((gen) => {
-                                    return <p>{gen.name}</p>
+                                genre.map((gen, i) => {
+                                    return <p key={i}>{gen.name}</p>
                                 })
                             }
                         </div>
@@ -96,19 +110,33 @@ const Detail = () => {
                             style={(displayPlatform) ? { backgroundColor: '#ccc' } : {}}
                             onClick={handlePlatforms}
                         >
-                            <p>Platforms</p>
+                            <p><strong>Platforms</strong></p>
                         </div>
                         <div className={styles.detailContentCollapsible}
                             style={(displayPlatform) ? { display: 'block' } : { display: 'none' }}
                         >
                             {
-                                (displayPlatform) ? platform.map((plat, i) => { return <p key={i}>{(source === 'api') ? plat.platform.name : plat.name}</p> }) : ''
+                                (displayPlatform) ? platform.map((plat, i) => { return <p key={i}>{(source === 'api') ? plat.platform.name : plat}</p> }) : ''
                             }
                         </div>
-                        <p>Rating : {rating}</p>
-                        <p>Released : {released}</p>
-                        <p>Description:</p>
-                        <p>{(description) ? cleanText(description) : ''}</p>
+                        <div className={styles.ratingCont}>
+                            <label><strong>Rating:</strong></label>
+                            <p>
+                                {
+                                    rateStars?.map((el) => {
+                                        return <FaStar />
+                                    })
+                                }
+                            </p>
+                        </div>
+                        <div>
+                            <label><strong>Released Date:</strong></label>
+                            <p>{released}</p>
+                        </div>
+                        <div className={styles.descriptionCont}>
+                            <label><strong>Description:</strong></label>
+                            <p>{(description) ? cleanText(description) : ''}</p>
+                        </div>
                     </div>
                 </div>
             </section>

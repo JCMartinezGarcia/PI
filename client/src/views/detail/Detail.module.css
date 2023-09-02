@@ -7,7 +7,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    height: 43rem;
+    height: 84rem;
 }
 
 .detailImage {
@@ -15,7 +15,7 @@
     /* background-attachment: fixed; */
     background-size: cover;
     background-size: 100% 100%;
-    height: auto;
+    /* height: auto; */
     margin: 2rem;
 }
 
@@ -102,4 +102,12 @@
 .detailFooterInner {
     margin: auto;
     padding: 2rem;
+}
+
+.descriptionCont p {
+    padding: 1rem;
+}
+
+.ratingCont p {
+    color: gold;
 }

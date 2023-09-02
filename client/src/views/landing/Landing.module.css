@@ -7,7 +7,7 @@
 .landingImage {
     background-image: url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80);
     background-color: #cccccc;
-    height: 42rem;
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -30,21 +30,55 @@
     font-size: 4rem;
 }
 
+
+
+
 .landingCard button {
-    width: 47%;
-    height: 23%;
-    background-color: #ffffff47;
-    border: 1px solid #ffffff00;
-    color: #ffffffa3;
+    height: 100px;
+    width: 300px;
     position: relative;
-    top: 4rem;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+    font: 1.5rem sans-serif;
+    cursor: pointer;
+    will-change: transform;
+    background-color: #fff0;
+    background-color: #fff0;
+    border: 1px solid fff0;
+    border: none;
+    color: white;
 }
 
-.landingCard button:hover {
-    background-color: #ffffff1f;
-    border: 1px solid #ffffff00;
-    color: #ffffff;
-    cursor: pointer;
-    font-weight: bolder;
-    font-size: large;
+.landingCard button::before,
+.landingCard button::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    background-color: #ffffff8a;
+    transition: all 250ms ease-in-out;
+}
+
+.landingCard button::before {
+    width: 2px;
+    height: 100px;
+    box-shadow: 298px 0 #ffffff8a;
+}
+
+.landingCard button::after {
+    height: 2px;
+    width: 300px;
+    box-shadow: 0 98px #ffffff8a;
+}
+
+.landingCard button:hover::before {
+    left: -10px;
+    box-shadow: 318px 0 #ffffff8a;
+}
+
+.landingCard button:hover::after {
+    top: -10px;
+    box-shadow: 0 118px #ffffff8a;
 }

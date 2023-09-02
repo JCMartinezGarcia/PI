@@ -1,11 +1,11 @@
 import style from './search.module.css';
-import Navbar from '../navbar/navbar';
 const Search = (props) => {
     const {
         handleChange,
         handleGenderChange,
         handleSrcChange,
         handleOrderChange,
+        handleSortChange,
         handleSubmitSearchName,
         allGenres
     } = props;
@@ -13,12 +13,13 @@ const Search = (props) => {
     return (
         <div className={style.searchContainer}>
             <div style={{ display: 'inline-flex' }}>
-                <label>filter by Genre: </label>
+                <label>Genre: </label>
                 <select
                     name='source'
                     onChange={handleGenderChange}
                     className={style.searchSelectGenre}
                 >
+                    <option value="" key="0">genre..</option>
                     {
                         allGenres.map((genres, i) => {
                             return <option value={genres.name} key={i}>{genres.name}</option>
@@ -32,6 +33,7 @@ const Search = (props) => {
                         type='text'
                         onChange={handleChange}
                         className={style.searchInput}
+                        placeholder='Introduce name..'
                     />
                     <button
                         type='submit'
@@ -41,26 +43,36 @@ const Search = (props) => {
             </div>
             <div>
 
-                <label>filter by source: </label>
+                <label>Source: </label>
                 <select
                     name='source'
                     onChange={handleSrcChange}
                     className={style.searchSelectSmall}
                 >
+                    <option value="" key="0">source..</option>
                     <option value='api'>Api</option>
                     <option value='db'>BD</option>
                 </select>
 
-                <label>order by: </label>
+                <label>Order: </label>
                 <select
                     name='source'
                     onChange={handleOrderChange}
                     className={style.searchSelectSmall}
                 >
+                    <option value="" key="0">order by..</option>
+                    <option value='rating'>Rating</option>
+                    <option value='name'>name</option>
+                </select>
+                <labe>Sort:</labe>
+                <select
+                    name='order'
+                    onChange={handleSortChange}
+                    className={style.searchSelectSmall}
+                >
+                    <option value="" key="0">sort..</option>
                     <option value='asc'>Asc</option>
                     <option value='desc'>Desc</option>
-                    <option value='rate'>Rating</option>
-                    <option value='alphabetical'>alphabetical</option>
                 </select>
             </div>
         </div>

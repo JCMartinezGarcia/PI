@@ -1,22 +1,49 @@
-import style from './card.module.css';
+import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import style from './card.module.css';
 
 function Card({ videoGame }) {
+    const {
+        name,
+        description,
+        platforms,
+        image,
+        genres,
+        rating,
+        released,
+        id
+    } = videoGame;
+    const [ratingStar, setRatingStar] = useState([]);
 
-    const { name, description, platforms, image, genres, rating, released, id } = videoGame;
+    useEffect(() => {
+        setRatingStar(ratingLen());
+    }, []);
+
+    const ratingLen = () => {
+        let rate = [];
+        for (let i = 0; i <= Math.floor(rating); i++) {
+            rate.push(i);
+        }
+        return rate;
+    }
+
     return (
         <div style={{ padding: '6px' }}>
-            <div className={`${style.cardContainer} ${style.cardImage}`} style={{ backgroundImage: `url(${image})` }}>
-                <p className={style.cardNamePosition}>
-                    <span >{id}</span>
-                    <span className={style.cardName}>{name}</span>
-                    <span >{rating}</span>
-                </p>
-                <Link to={`/detail/${id}`}>
-                    <button className={style.cardButton}>Details </button>
-                </Link>
+            <Link to={`/detail/${id}`}>
+                <div className={`${style.cardContainer} ${style.cardImage}`} style={{ backgroundImage: `url(${image})` }}>
+                </div>
+            </Link>
+            <p>
+                <span className={style.cardName}>{name}</span>
+            </p>
+            <div className={style.ratingCont}>
+                {
+                    ratingStar?.map((el) => {
+                        return <FaStar />
+                    })
+                }
             </div>
-
         </div>
     )
 }

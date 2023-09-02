@@ -5,6 +5,7 @@ export const isNotEmptyArr = (array) => {
 
 export const cleanText = (text) => {
     let stringOne = text.replaceAll('</p>', '');
-    let finalString = stringOne.replaceAll('<p>', '');
+    let stringTwo = stringOne.replaceAll('<p>', '');
+    let finalString = stringTwo.replaceAll('<br />', '');
     return finalString
 }

@@ -2,32 +2,31 @@ import styles from './pagination.module.css'
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const pageNumbers = [];
-
-    for (let i = 1; i <= totalPages; i++) {
+    const pages = (totalPages === 0) ? 1 : totalPages;
+    for (let i = 1; i <= pages; i++) {
         pageNumbers.push(i);
     }
-
     return (
         <div className={styles.pagContainer}>
-            <a
+            <span
                 className={styles.pagItem}
                 onClick={() => onPageChange(currentPage, 'left')}
             >&laquo;
-            </a>
+            </span>
             {pageNumbers.map((number) => (
-                <a
+                <span
                     key={number}
                     className={currentPage === number ? styles.active : styles.pagItem}
                     onClick={() => onPageChange(number)}
                 >
                     {number}
-                </a>
+                </span>
             ))}
-            <a
+            <span
                 className={styles.pagItem}
                 onClick={() => onPageChange(currentPage, 'rigth')}
             >&raquo;
-            </a>
+            </span>
         </div>
     )
 }

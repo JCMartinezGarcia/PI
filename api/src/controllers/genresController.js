@@ -12,10 +12,15 @@ const getAllGenres = async (req, res) => {
     /**validate if DB is empty */
     const testDB = await Genres.findAll({ limit: 30 });
     const source = (!testDB.length) ? 'api' : 'db';
-    try {
         switch (source) {
             case 'api':
-                const { data } = await axios.get(GET_ALL_GENRES, { params: { key: RAW_API_KEY, page_size: 30 } });
+                const { data } = await axios.get(GET_ALL_GENRES,
+                    {
+                        params: {
+                            key: RAW_API_KEY,
+                            page_size: 30
+                        }
+                    });
                 const oGenres = cleanGenres(data.results);
                 const genresApi = await Genres.bulkCreate(oGenres);
                 return genresApi;
@@ -25,10 +30,7 @@ const getAllGenres = async (req, res) => {
             default:
                 break;
         }
-
-    } catch (error) {
-        return error;
-    }
+   
 }
 
 module.exports = {
